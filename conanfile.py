@@ -23,7 +23,10 @@ class FDKAACConan(ConanFile):
         os.rename(extracted_dir, "sources")
 
     def build_vs(self):
-        raise Exception("TODO")
+        with tools.chdir('sources'):
+            with tools.vcvars(self.settings, force=True):
+                self.run('nmake -f Makefile.vc')
+                self.run('nmake -f Makefile.vc prefix="%s" install' % os.path.abspath(self.package_folder))
 
     def build_configure(self):
         with tools.chdir('sources'):
@@ -48,4 +51,7 @@ class FDKAACConan(ConanFile):
         self.copy(pattern="NOTICE", src='sources')
 
     def package_info(self):
-        self.cpp_info.libs = ['fdk-aac']
+        if self.settings.compiler == 'Visual Studio' and self.options.shared:
+            self.cpp_info.libs = ['fdk-acc.dll.lib']
+        else:
+            self.cpp_info.libs = ['fdk-aac']
