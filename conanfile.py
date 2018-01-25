@@ -16,6 +16,14 @@ class FDKAACConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False"
 
+    def system_requirements(self):
+        if self.settings.os == "Linux" and tools.os_info.is_linux:
+            if tools.os_info.with_apt:
+                installer = tools.SystemPackageTool()
+                packages = ['autoconf', 'automake', 'libtool-bin']
+                for package in packages:
+                    installer.install(package)
+
     def source(self):
         source_url = "https://github.com/mstorsjo/fdk-aac/archive/v%s.tar.gz" % self.version
         tools.get(source_url)
