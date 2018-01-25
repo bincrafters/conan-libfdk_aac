@@ -1,26 +1,26 @@
-[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/somelib%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/somelib%3Abincrafters/_latestVersion)
-[![Build Status](https://travis-ci.org/bincrafters/conan-somelib.svg?branch=stable%2F0.0.0)](https://travis-ci.org/bincrafters/conan-somelib)
-[![Build status](https://ci.appveyor.com/api/projects/status/sxs9n6vb8nqa92l5?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-somelib)
+[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libfdk-aac%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libfdk-aac%3Abincrafters/_latestVersion)
+[![Build Status](https://travis-ci.org/bincrafters/conan-libfdk-aac.svg?branch=testing%2F0.1.5)](https://travis-ci.org/bincrafters/conan-libfdk-aac)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-libfdk-aac?branch=testing%2F0.1.5&svg=true)](https://ci.appveyor.com/project/bincrafters/conan-libfdk-aac)
 
-[Conan.io](https://conan.io) package for [somelib](https://github.com/someauthor/somelib) project
+[Conan.io](https://conan.io) package recipe for *libfdk-aac*.
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/somelib%3Abincrafters).
+A standalone library of the Fraunhofer FDK AAC code from Android
+
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/bincrafters/public-conan/libfdk-aac%3Abincrafters).
 
 ## For Users: Use this package
 
 ### Basic setup
 
-    $ conan install somelib/0.0.0@bincrafters/stable
+    $ conan install libfdk-aac/0.1.5@bincrafters/testing
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    somelib/0.0.0@bincrafters/stable
+    libfdk-aac/0.1.5@bincrafters/testing
 
-    [generators]
-    txt
 
 Complete the installation of requirements for your project running:
 
@@ -36,7 +36,13 @@ The example below shows the commands used to publish to bincrafters conan reposi
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
 
-    $ conan create bincrafters/stable
+    $ conan create bincrafters/testing
+
+
+### Available Options
+| Option        | Default | Possible Values  |
+| ------------- |:----------------- |:------------:|
+| shared      | False |  [True, False] |
 
 ## Add Remote
 
@@ -44,7 +50,12 @@ The following command both runs all the steps of the conan file, and publishes t
 
 ## Upload
 
-    $ conan upload somelib/0.0.0@bincrafters/stable --all -r bincrafters
+    $ conan upload libfdk-aac/0.1.5@bincrafters/testing --all -r bincrafters
 
-## License
-[LICENSE_TYPE](LICENSE)
+
+## Conan Recipe License
+
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package libfdk-aac.
+It does *not* in any way apply or is related to the actual software being packaged.
+
+[MIT](https://github.com/bincrafters/conan-libfdk_aac.git/blob/testing/0.1.5/LICENSE.md)
