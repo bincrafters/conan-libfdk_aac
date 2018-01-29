@@ -73,6 +73,6 @@ class FDKAACConan(ConanFile):
 
     def package_info(self):
         if self.settings.compiler == 'Visual Studio' and self.options.shared:
-            self.cpp_info.libs = ['fdk-acc.dll.lib']
+            self.cpp_info.libs = ['fdk-aac.dll.lib']
         else:
             self.cpp_info.libs = ['fdk-aac']
