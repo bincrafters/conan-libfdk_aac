@@ -16,6 +16,10 @@ class FDKAACConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False"
 
+    @property
+    def is_mingw(self):
+        return self.settings.compiler == 'gcc' and self.settings.os == 'Windows'
+
     def system_requirements(self):
         if self.settings.os == "Linux" and tools.os_info.is_linux:
             if tools.os_info.with_apt:
@@ -38,13 +42,17 @@ class FDKAACConan(ConanFile):
 
     def build_configure(self):
         with tools.chdir('sources'):
-            args = ['--prefix=%s' % self.package_folder]
+            win_bash = self.is_mingw
+            prefix = os.path.abspath(self.package_folder)
+            if self.is_mingw:
+                prefix = tools.unix_path(prefix, tools.MSYS2)
+            args = ['--prefix=%s' % prefix]
             if self.options.shared:
                 args.extend(['--disable-static', '--enable-shared'])
             else:
                 args.extend(['--disable-shared', '--enable-static'])
-            env_build = AutoToolsBuildEnvironment(self)
-            self.run('autoreconf -fiv')
+            env_build = AutoToolsBuildEnvironment(self, win_bash=win_bash)
+            self.run('autoreconf -fiv', win_bash=win_bash)
             env_build.configure(args=args)
             env_build.make()
             env_build.make(args=['install'])
@@ -52,6 +60,11 @@ class FDKAACConan(ConanFile):
     def build(self):
         if self.settings.compiler == 'Visual Studio':
             self.build_vs()
+        elif self.is_mingw:
+            msys_bin = self.deps_env_info['msys2_installer'].MSYS_BIN
+            with tools.environment_append({'PATH': [msys_bin],
+                                           'CONAN_BASH_PATH': os.path.join(msys_bin, 'bash.exe')}):
+                self.build_configure()
         else:
             self.build_configure()
 
