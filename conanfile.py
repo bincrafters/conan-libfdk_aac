@@ -14,12 +14,16 @@ class FDKAACConan(ConanFile):
     exports_sources = ["CMakeLists.txt", "LICENSE"]
     settings = "os", "arch", "compiler", "build_type"
     homepage = "https://sourceforge.net/projects/opencore-amr/"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = "shared=False", "fPIC=True"
 
     @property
     def is_mingw(self):
         return self.settings.compiler == 'gcc' and self.settings.os == 'Windows'
+
+    def config_options(self):
+        if self.settings.os == 'Windows':
+            del self.options.fPIC
 
     def system_requirements(self):
         if self.settings.os == "Linux" and tools.os_info.is_linux:
@@ -52,6 +56,8 @@ class FDKAACConan(ConanFile):
                 args.extend(['--disable-static', '--enable-shared'])
             else:
                 args.extend(['--disable-shared', '--enable-static'])
+            if self.settings.os != 'Windows' and self.options.fPIC:
+                args.append('--with-pic')
             env_build = AutoToolsBuildEnvironment(self, win_bash=win_bash)
             self.run('autoreconf -fiv', win_bash=win_bash)
             env_build.configure(args=args)
