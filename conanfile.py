@@ -8,7 +8,7 @@ import os
 class FDKAACConan(ConanFile):
     name = "libfdk_aac"
     version = "0.1.5"
-    url = "https://github.com/bincrafters/conan-libfdk-aac"
+    url = "https://github.com/bincrafters/conan-libfdk_aac"
     description = "A standalone library of the Fraunhofer FDK AAC code from Android"
     license = "https://github.com/mstorsjo/fdk-aac/blob/master/NOTICE"
     exports_sources = ["CMakeLists.txt", "LICENSE"]
