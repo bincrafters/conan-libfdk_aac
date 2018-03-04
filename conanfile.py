@@ -43,6 +43,9 @@ class FDKAACConan(ConanFile):
         with tools.chdir('sources'):
             with tools.vcvars(self.settings, force=True):
                 with tools.remove_from_path('mkdir'):
+                    tools.replace_in_file('Makefile.vc',
+                                          'CFLAGS   = /nologo /W3 /Ox /MT',
+                                          'CFLAGS   = /nologo /W3 /Ox /%s' % str(self.settings.compiler.runtime))
                     self.run('nmake -f Makefile.vc')
                     self.run('nmake -f Makefile.vc prefix="%s" install' % os.path.abspath(self.package_folder))
 
