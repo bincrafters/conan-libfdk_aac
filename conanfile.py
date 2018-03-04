@@ -3,6 +3,7 @@
 
 from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
+import fnmatch
 
 
 class FDKAACConan(ConanFile):
@@ -81,6 +82,15 @@ class FDKAACConan(ConanFile):
 
     def package(self):
         self.copy(pattern="NOTICE", src='sources', dst="licenses")
+        if self.settings.compiler == 'Visual Studio':
+            if self.options.shared:
+                exts = ['fdk-aac.lib']
+            else:
+                exts = ['fdk-aac.dll.lib', 'fdk-aac-1.dll']
+            for root, _, filenames in os.walk(self.package_folder):
+                for ext in exts:
+                    for filename in fnmatch.filter(filenames, ext):
+                        os.unlink(os.path.join(root, filename))
 
     def package_info(self):
         if self.settings.compiler == 'Visual Studio' and self.options.shared:
