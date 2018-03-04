@@ -70,7 +70,7 @@ class FDKAACConan(ConanFile):
             self.build_configure()
 
     def package(self):
-        self.copy(pattern="NOTICE", src='sources')
+        self.copy(pattern="NOTICE", src='sources', dst="licenses")
 
     def package_info(self):
         if self.settings.compiler == 'Visual Studio' and self.options.shared:
