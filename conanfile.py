@@ -13,6 +13,7 @@ class FDKAACConan(ConanFile):
     license = "https://github.com/mstorsjo/fdk-aac/blob/master/NOTICE"
     exports_sources = ["CMakeLists.txt", "LICENSE"]
     settings = "os", "arch", "compiler", "build_type"
+    homepage = "https://sourceforge.net/projects/opencore-amr/"
     options = {"shared": [True, False]}
     default_options = "shared=False"
 
