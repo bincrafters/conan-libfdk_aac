@@ -1,25 +1,25 @@
-[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libfdk-aac%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libfdk-aac%3Abincrafters/_latestVersion)
-[![Build Status](https://travis-ci.org/bincrafters/conan-libfdk-aac.svg?branch=testing%2F0.1.5)](https://travis-ci.org/bincrafters/conan-libfdk-aac)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-libfdk-aac?branch=testing%2F0.1.5&svg=true)](https://ci.appveyor.com/project/bincrafters/conan-libfdk-aac)
+[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libfdk_aac%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libfdk_aac%3Abincrafters/_latestVersion)
+[![Build Status](https://travis-ci.org/bincrafters/conan-libfdk_aac.svg?branch=testing%2F0.1.5)](https://travis-ci.org/bincrafters/conan-libfdk_aac)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-libfdk_aac?branch=testing%2F0.1.5&svg=true)](https://ci.appveyor.com/project/bincrafters/conan-libfdk_aac)
 
-[Conan.io](https://conan.io) package recipe for *libfdk-aac*.
+[Conan.io](https://conan.io) package recipe for [*libfdk_aac*](https://sourceforge.net/projects/opencore-amr/).
 
 A standalone library of the Fraunhofer FDK AAC code from Android
 
-The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/bincrafters/public-conan/libfdk-aac%3Abincrafters).
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/bincrafters/public-conan/libfdk_aac%3Abincrafters).
 
 ## For Users: Use this package
 
 ### Basic setup
 
-    $ conan install libfdk-aac/0.1.5@bincrafters/testing
+    $ conan install libfdk_aac/0.1.5@bincrafters/testing
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    libfdk-aac/0.1.5@bincrafters/testing
+    libfdk_aac/0.1.5@bincrafters/testing
 
 
 Complete the installation of requirements for your project running:
@@ -43,6 +43,7 @@ The following command both runs all the steps of the conan file, and publishes t
 | Option        | Default | Possible Values  |
 | ------------- |:----------------- |:------------:|
 | shared      | False |  [True, False] |
+| fPIC      | True |  [True, False] |
 
 ## Add Remote
 
@@ -50,12 +51,12 @@ The following command both runs all the steps of the conan file, and publishes t
 
 ## Upload
 
-    $ conan upload libfdk-aac/0.1.5@bincrafters/testing --all -r bincrafters
+    $ conan upload libfdk_aac/0.1.5@bincrafters/testing --all -r bincrafters
 
 
 ## Conan Recipe License
 
-NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package libfdk-aac.
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package libfdk_aac.
 It does *not* in any way apply or is related to the actual software being packaged.
 
-[MIT](https://github.com/bincrafters/conan-libfdk_aac.git/blob/testing/0.1.5/LICENSE.md)
+[MIT](https://github.com/bincrafters/conan-libfdk_aac.git/blob/testing/0.1.5/LICENSE)
