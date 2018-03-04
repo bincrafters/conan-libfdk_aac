@@ -42,8 +42,9 @@ class FDKAACConan(ConanFile):
     def build_vs(self):
         with tools.chdir('sources'):
             with tools.vcvars(self.settings, force=True):
-                self.run('nmake -f Makefile.vc')
-                self.run('nmake -f Makefile.vc prefix="%s" install' % os.path.abspath(self.package_folder))
+                with tools.remove_from_path('mkdir'):
+                    self.run('nmake -f Makefile.vc')
+                    self.run('nmake -f Makefile.vc prefix="%s" install' % os.path.abspath(self.package_folder))
 
     def build_configure(self):
         with tools.chdir('sources'):
