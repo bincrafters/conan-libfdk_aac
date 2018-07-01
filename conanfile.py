@@ -30,7 +30,7 @@ class FDKAACConan(ConanFile):
         if self.settings.os == "Linux" and tools.os_info.is_linux:
             if tools.os_info.with_apt:
                 installer = tools.SystemPackageTool()
-                packages = ['autoconf', 'automake', 'libtool-bin']
+                packages = ['autoconf', 'automake', 'libtool']
                 for package in packages:
                     installer.install(package)
 
