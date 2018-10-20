@@ -16,10 +16,11 @@ class FDKAACConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     homepage = "https://sourceforge.net/projects/opencore-amr/"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=True"
+    default_options = {'shared': False, 'fPIC': True}
+    _source_subfolder = 'sources'
 
     @property
-    def is_mingw(self):
+    def _is_mingw(self):
         return self.settings.compiler == 'gcc' and self.settings.os == 'Windows'
 
     def config_options(self):
@@ -38,10 +39,10 @@ class FDKAACConan(ConanFile):
         source_url = "https://github.com/mstorsjo/fdk-aac/archive/v%s.tar.gz" % self.version
         tools.get(source_url)
         extracted_dir = "fdk-aac-" + self.version
-        os.rename(extracted_dir, "sources")
+        os.rename(extracted_dir, self._source_subfolder)
 
-    def build_vs(self):
-        with tools.chdir('sources'):
+    def _build_vs(self):
+        with tools.chdir(self._source_subfolder):
             with tools.vcvars(self.settings, force=True):
                 with tools.remove_from_path('mkdir'):
                     tools.replace_in_file('Makefile.vc',
@@ -50,11 +51,11 @@ class FDKAACConan(ConanFile):
                     self.run('nmake -f Makefile.vc')
                     self.run('nmake -f Makefile.vc prefix="%s" install' % os.path.abspath(self.package_folder))
 
-    def build_configure(self):
-        with tools.chdir('sources'):
-            win_bash = self.is_mingw
+    def _build_configure(self):
+        with tools.chdir(self._source_subfolder):
+            win_bash = self._is_mingw
             prefix = os.path.abspath(self.package_folder)
-            if self.is_mingw:
+            if self._is_mingw:
                 prefix = tools.unix_path(prefix, tools.MSYS2)
             args = ['--prefix=%s' % prefix]
             if self.options.shared:
@@ -71,14 +72,9 @@ class FDKAACConan(ConanFile):
 
     def build(self):
         if self.settings.compiler == 'Visual Studio':
-            self.build_vs()
-        elif self.is_mingw:
-            msys_bin = self.deps_env_info['msys2_installer'].MSYS_BIN
-            with tools.environment_append({'PATH': [msys_bin],
-                                           'CONAN_BASH_PATH': os.path.join(msys_bin, 'bash.exe')}):
-                self.build_configure()
+            self._build_vs()
         else:
-            self.build_configure()
+            self._build_configure()
 
     def package(self):
         self.copy(pattern="NOTICE", src='sources', dst="licenses")
