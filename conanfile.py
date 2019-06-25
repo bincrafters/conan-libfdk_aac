@@ -8,13 +8,15 @@ import fnmatch
 
 class FDKAACConan(ConanFile):
     name = "libfdk_aac"
-    version = "0.1.5"
+    version = "2.0.0"
     url = "https://github.com/bincrafters/conan-libfdk_aac"
     description = "A standalone library of the Fraunhofer FDK AAC code from Android"
     license = "https://github.com/mstorsjo/fdk-aac/blob/master/NOTICE"
     exports_sources = ["CMakeLists.txt", "LICENSE"]
     settings = "os", "arch", "compiler", "build_type"
     homepage = "https://sourceforge.net/projects/opencore-amr/"
+    author = "Bincrafters <bincrafters@gmail.com>"
+    topics = "multimedia", "audio", "fraunhofer", "aac", "decoder", "encoding", "decoding"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {'shared': False, 'fPIC': True}
     _source_subfolder = 'sources'
@@ -37,7 +39,7 @@ class FDKAACConan(ConanFile):
 
     def source(self):
         source_url = "https://github.com/mstorsjo/fdk-aac/archive/v%s.tar.gz" % self.version
-        tools.get(source_url)
+        tools.get(source_url,sha256="6e6c7921713788e31df655911e1d42620b057180b00bf16874f5d630e1d5b9a2")
         extracted_dir = "fdk-aac-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
 
