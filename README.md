@@ -63,4 +63,4 @@ The following command both runs all the steps of the conan file, and publishes t
 NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package libfdk_aac.
 It does *not* in any way apply or is related to the actual software being packaged.
 
-[MIT](https://github.com/feliwir/conan-libfdk_aac/blob/stable/2.0.0/LICENSE.md)
+[MIT](https://github.com/bincrafters/conan-libfdk_aac/blob/stable/2.0.0/LICENSE.md)

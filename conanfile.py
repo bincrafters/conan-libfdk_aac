@@ -16,7 +16,7 @@ class FDKAACConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     homepage = "https://sourceforge.net/projects/opencore-amr/"
     author = "Bincrafters <bincrafters@gmail.com>"
-    topics = "multimedia", "audio", "fraunhofer", "aac", "decoder", "encoding", "decoding"
+    topics = ("conan", "libfdk_aac", "multimedia", "audio", "fraunhofer", "aac", "decoder", "encoding", "decoding")
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {'shared': False, 'fPIC': True}
     _source_subfolder = 'sources'
