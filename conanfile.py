@@ -39,7 +39,7 @@ class FDKAACConan(ConanFile):
 
     def source(self):
         source_url = "https://github.com/mstorsjo/fdk-aac/archive/v%s.tar.gz" % self.version
-        tools.get(source_url,sha256="6e6c7921713788e31df655911e1d42620b057180b00bf16874f5d630e1d5b9a2")
+        tools.get(source_url, sha256="6e6c7921713788e31df655911e1d42620b057180b00bf16874f5d630e1d5b9a2")
         extracted_dir = "fdk-aac-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
 
