@@ -95,3 +95,5 @@ class FDKAACConan(ConanFile):
             self.cpp_info.libs = ['fdk-aac.dll.lib']
         else:
             self.cpp_info.libs = ['fdk-aac']
+        if self.settings.os == "Linux":
+            self.cpp_info.libs.append("m")
