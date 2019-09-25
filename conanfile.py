@@ -20,14 +20,14 @@ class FDKAACConan(ConanFile):
 
     @property
     def _is_mingw(self):
-        return self.settings.compiler == 'gcc' and self.settings.os == 'Windows'
+        return tools.os_info.is_windows and (self.settings.compiler == 'gcc' or tools.cross_building(self.settings))
 
     def config_options(self):
         if self.settings.os == 'Windows':
             del self.options.fPIC
 
     def system_requirements(self):
-        if self.settings.os == "Linux" and tools.os_info.is_linux:
+        if tools.os_info.is_linux and not tools.cross_building(self.settings):
             if tools.os_info.with_apt:
                 installer = tools.SystemPackageTool()
                 packages = ['autoconf', 'automake', 'libtool']
@@ -65,6 +65,9 @@ class FDKAACConan(ConanFile):
                 args.append('--with-pic')
             env_build = AutoToolsBuildEnvironment(self, win_bash=win_bash)
             self.run('autoreconf -fiv', win_bash=win_bash)
+            if self.settings.os == "Android" and tools.os_info.is_windows:
+                tools.replace_in_file('configure',
+                    "s/[	 `~#$^&*(){}\\\\|;'\\\''\"<>?]/\\\\&/g", "s/[	 `~#$^&*(){}\\\\|;<>?]/\\\\&/g")
             env_build.configure(args=args)
             env_build.make()
             env_build.make(args=['install'])
@@ -92,5 +95,5 @@ class FDKAACConan(ConanFile):
             self.cpp_info.libs = ['fdk-aac.dll.lib']
         else:
             self.cpp_info.libs = ['fdk-aac']
-        if self.settings.os == "Linux":
+        if self.settings.os == "Linux" or self.settings.os == "Android":
             self.cpp_info.libs.append("m")
