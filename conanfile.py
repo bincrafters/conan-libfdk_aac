@@ -19,7 +19,7 @@ class FDKAACConan(ConanFile):
     _source_subfolder = 'sources'
 
     @property
-    def _is_mingw(self):
+    def _use_winbash(self):
         return tools.os_info.is_windows and (self.settings.compiler == 'gcc' or tools.cross_building(self.settings))
 
     def config_options(self):
@@ -52,9 +52,9 @@ class FDKAACConan(ConanFile):
 
     def _build_configure(self):
         with tools.chdir(self._source_subfolder):
-            win_bash = self._is_mingw
+            win_bash = self._use_winbash
             prefix = os.path.abspath(self.package_folder)
-            if self._is_mingw:
+            if self._use_winbash:
                 prefix = tools.unix_path(prefix, tools.MSYS2)
             args = ['--prefix=%s' % prefix]
             if self.options.shared:
