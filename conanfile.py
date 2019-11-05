@@ -66,6 +66,7 @@ class FDKAACConan(ConanFile):
             env_build = AutoToolsBuildEnvironment(self, win_bash=win_bash)
             self.run('autoreconf -fiv', win_bash=win_bash)
             if self.settings.os == "Android" and tools.os_info.is_windows:
+                # remove escape for quotation marks, to make ndk on windows happy
                 tools.replace_in_file('configure',
                     "s/[	 `~#$^&*(){}\\\\|;'\\\''\"<>?]/\\\\&/g", "s/[	 `~#$^&*(){}\\\\|;<>?]/\\\\&/g")
             env_build.configure(args=args)
